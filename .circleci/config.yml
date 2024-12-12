@@ -1,7 +1,7 @@
   jobs:
     increment-git-tag:
       docker:
-      - image: cimg/base:current-22.04
+      - image: cimg/base:current-22.04@sha256:03c91d4730297b5af3718e1e81d43e210eae02be271ed7d370ccb3b994dad2bd
       steps:
         - add_ssh_keys:
             fingerprints:
