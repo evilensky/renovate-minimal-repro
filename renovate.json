@@ -5,23 +5,28 @@
         "config:recommended",
         "docker:pinDigests",
         "docker:enableMajor",
-        "regexManagers:dockerfileVersions",
+        "customManagers:dockerfileVersions",
         ":label(renovate)",
         ":separateMajorReleases",
         ":preserveSemverRanges",
         ":semanticCommitsDisabled"
     ],
     "circleci": {
-        "fileMatch": ["(^|/).circleci/config.yml$"],
-          "packageRules": [
+        "fileMatch": [
+            "(^|/).circleci/config.yml$"
+        ],
+        "packageRules": [
             {
-              "matchPackageNames": ["cimg/base"],
-              "versioning": "regex:^current-(?<major>\\d+)\\.(?<minor>\\d+)$"
+                "matchPackageNames": [
+                    "cimg/base"
+                ],
+                "versioning": "regex:^current-(?<major>\\d+)\\.(?<minor>\\d+)$"
             }
-          ]
-      },
-    "regexManagers": [
+        ]
+    },
+    "customManagers": [
         {
+            "customType": "regex",
             "description": "Custom package manager for docker-image key in .circleci/config.yml as it is used in codeql/code-scan jobs.",
             "fileMatch": [
                 "^.circleci/config.yml$",
@@ -36,5 +41,4 @@
             "autoReplaceStringTemplate": "docker-image: {{depName}}:{{newValue}}{{#if newDigest}}@{{newDigest}}{{/if}}"
         }
     ]
-  }
-
+}
