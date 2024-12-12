@@ -1,0 +1,29 @@
+version: 2.1
+
+workflows:
+    code-scan:
+      jobs:
+        - codeql/code-scan:
+            name: codeql/code-scan python
+            context: cambia
+            docker-image: cimg/python:3.12
+            language: python
+
+    code-scan-node:
+      jobs:
+       - codeql/code-scan:
+            name: codeql/code-scan node
+            context: cambia
+            docker-image: cimg/node:18
+            language: javascript
+
+    code-scan-go:
+     jobs:
+     - codeql/code-scan:
+            name: codeql/code-scan go
+            context: cambia
+            docker-image: cimg/go:1.20
+
+     - increment-git-tag:
+        docker:
+          - image: cimg/base:current-22.04
