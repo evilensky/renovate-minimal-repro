@@ -35,7 +35,9 @@
         "docker-image:\\s*(?<depName>.*?):(?<currentValue>[^@\\s]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?"
       ],
       "datasourceTemplate": "docker",
-      "autoReplaceStringTemplate": "docker-image: {{{depName}}}:{{{newValue}}}@{{{newDigest}}}"
+      "autoReplaceStringTemplate": "docker-image: {{{depName}}}:{{{newValue}}}@{{{newDigest}}}",
+      "versioningTemplate": "docker",
+      "depTypeTemplate": "docker"
     }
   ]
 }
