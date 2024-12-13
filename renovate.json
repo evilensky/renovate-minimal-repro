@@ -1,37 +1,41 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-        "group:allNonMajor",
-        "config:recommended",
-        "docker:pinDigests",
-        "docker:enableMajor",
-        "regexManagers:dockerfileVersions",
-        ":label(renovate)",
-        ":separateMajorReleases",
-        ":preserveSemverRanges",
-        ":semanticCommitsDisabled"
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "group:allNonMajor",
+    "config:recommended",
+    "docker:pinDigests",
+    "docker:enableMajor",
+    "regexManagers:dockerfileVersions",
+    ":label(renovate)",
+    ":separateMajorReleases",
+    ":preserveSemverRanges",
+    ":semanticCommitsDisabled"
+  ],
+  "circleci": {
+    "fileMatch": [
+      "(^|/).circleci/config.yml$"
     ],
-    "circleci": {
-        "fileMatch": ["(^|/).circleci/config.yml$"],
-          "packageRules": [
-            {
-              "matchPackageNames": ["cimg/base"],
-              "versioning": "regex:^current-(?<major>\\d+)\\.(?<minor>\\d+)$"
-            }
-          ]
-      },
-    "regexManagers": [
-        {
-            "description": "Custom package manager for docker-image key in .circleci/config.yml as it is used in codeql/code-scan jobs.",
-            "fileMatch": [
-                "^.circleci/config.yml$",
-                "(^|/).circleci/config-cimg-base.yml$"
-            ],
-            "matchStrings": [
-                "docker-image:\\s*(?<depName>.*?):(?<currentValue>.*)(@(?<currentDigest>sha256:[a-f0-9]+))?"
-            ],
-            "datasourceTemplate": "docker"
-        }
+    "packageRules": [
+      {
+        "matchPackageNames": [
+          "cimg/base"
+        ],
+        "versioning": "regex:^current-(?<major>\\d+)\\.(?<minor>\\d+)$"
+      }
     ]
-  }
-
+  },
+  "regexManagers": [
+    {
+      "description": "Custom package manager for docker-image key in .circleci/config.yml as it is used in codeql/code-scan jobs.",
+      "fileMatch": [
+        "^.circleci/config.yml$",
+        "(^|/).circleci/config-cimg-base.yml$"
+      ],
+      "matchStrings": [
+        "docker-image:\\s*(?<depName>.*?):(?<currentValue>[^@\\s]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?"
+      ],
+      "datasourceTemplate": "docker",
+      "autoReplaceStringTemplate": "docker-image: {{{depName}}}:{{{newValue}}}@{{{newDigest}}}"
+    }
+  ]
+}
