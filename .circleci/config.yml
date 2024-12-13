@@ -14,7 +14,7 @@ workflows:
        - codeql/code-scan:
             name: codeql/code-scan node
             context: cambia
-            docker-image: cimg/node:18.0@sha256:ef1eddccf79ba70c831f9441bbb79ffea55dab96c4c6f4748f6583df05d539e7
+            docker-image: cimg/node:18.20@sha256:170f90e441bb5f6135d964addf0ac8da47cf6dff3d59d590b833714c0449ed04
             language: javascript
 
     code-scan-go:
