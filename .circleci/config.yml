@@ -6,7 +6,7 @@ workflows:
         - codeql/code-scan:
             name: codeql/code-scan python
             context: cambia
-            docker-image: cimg/python:3.12
+            docker-image: cimg/python:3.12@sha256:24def8371540b4130174d39f1f76600377a0163b58add91249a045789488e80f
             language: python
 
     code-scan-node:
@@ -14,7 +14,7 @@ workflows:
        - codeql/code-scan:
             name: codeql/code-scan node
             context: cambia
-            docker-image: cimg/node:18.0
+            docker-image: cimg/node:18.0@sha256:ef1eddccf79ba70c831f9441bbb79ffea55dab96c4c6f4748f6583df05d539e7
             language: javascript
 
     code-scan-go:
@@ -22,11 +22,11 @@ workflows:
      - codeql/code-scan:
             name: codeql/code-scan go
             context: cambia
-            docker-image: cimg/go:1.20
+            docker-image: cimg/go:1.20@sha256:bd1abc34d5deb0c8f55e9f9c8071210e3a5ba9ce874f48a61a390175c2be0da6
 
 
 
 jobs:
   increment-git-tag:
     docker:
-      - image: cimg/base:current-22.04
+      - image: cimg/base:current-22.04@sha256:03c91d4730297b5af3718e1e81d43e210eae02be271ed7d370ccb3b994dad2bd
